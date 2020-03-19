@@ -1,5 +1,6 @@
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
+import 'package:covid19/providers/history_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
     super.initState();
     Provider.of<GlobalProvider>(context,listen: false).getGlobalProvider();
     Provider.of<CountryProvider>(context,listen: false).getCountry();
+    Provider.of<HistoryProvider>(context,listen: false).getHistory();
   }
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,6 @@ class _HomeState extends State<Home> {
           _listTileWidget(
             title: 'Dikonfirmasi',
             subtitle: '${formatNumber.format(globalData.confirmed.value,)}',
-            color: Colors.green,
           ),
           _listTileWidget(
             title: 'Sembuh',
@@ -65,9 +66,19 @@ class _HomeState extends State<Home> {
     return Container(
       height: 140,
       child: Card(
-        child: ListTile(
-          title: Text(title,style: TextStyle(fontSize: 15,),),
-          subtitle: Text(subtitle,style: TextStyle(fontSize: 40,color: color),),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(title,style: TextStyle(color: color,fontSize: 15),),
+              Text(subtitle,style: TextStyle(color: color,fontSize: 35,fontWeight: FontWeight.bold),),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text('Global'),
+              )
+            ],
+          ),
         ),
       ),
     );

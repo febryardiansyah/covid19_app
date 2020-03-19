@@ -1,6 +1,7 @@
 import 'package:covid19/botom_nav_Bar.dart';
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
+import 'package:covid19/providers/history_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GlobalProvider(),),
-        ChangeNotifierProvider(create: (_)=>CountryProvider(),)
+        ChangeNotifierProvider(create: (_)=>CountryProvider(),),
+        ChangeNotifierProvider(create: (_)=>HistoryProvider(),)
       ],
       child: MaterialApp(
         theme: ThemeData.dark(),

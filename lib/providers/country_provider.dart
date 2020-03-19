@@ -10,7 +10,7 @@ class CountryProvider extends ChangeNotifier{
   List<CountryModel> get listCountry => _list;
 
   Future<List<CountryModel>>getCountry()async{
-    final response = await api.client.get("${api.baseUrl}/api/confirmed");
+    final response = await api.client.get('${api.countryUrl}/countries');
     
     if(response.statusCode == 200){
       notifyListeners();
@@ -21,5 +21,4 @@ class CountryProvider extends ChangeNotifier{
       return null;
     }
   }
-  
 }
