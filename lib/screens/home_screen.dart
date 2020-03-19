@@ -1,3 +1,4 @@
+import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,12 +16,14 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     Provider.of<GlobalProvider>(context,listen: false).getGlobalProvider();
+    Provider.of<CountryProvider>(context,listen: false).getCountry();
   }
   @override
   Widget build(BuildContext context) {
     var globalData = Provider.of<GlobalProvider>(context).global;
     final formatNumber = NumberFormat('#,###');
     final formatTgl = DateFormat('dd - MMMM - yyyy');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Covid - 19'),
@@ -31,45 +34,40 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-      body: globalData!=null?ListView(
+      body: globalData != null ? ListView(
         padding: EdgeInsets.symmetric(horizontal: 10),
         children: <Widget>[
           SizedBox(height: 10,),
-          Text('Terakhir diperbaharui : \t${formatTgl.format(globalData.lastUpdate)}'),
+          Align(
+              alignment: Alignment.topRight,
+              child: Text('Terakhir diperbaharui : \t${formatTgl.format(globalData.lastUpdate)}')),
           SizedBox(height: 10,),
           _listTileWidget(
             title: 'Dikonfirmasi',
             subtitle: '${formatNumber.format(globalData.confirmed.value,)}',
             color: Colors.green,
-            onTap: (){}
           ),
           _listTileWidget(
             title: 'Sembuh',
             subtitle: '${formatNumber.format(globalData.recovered.value)}',
             color: Colors.blue,
-            onTap: (){}
           ),
           _listTileWidget(
             title: 'Meninggal',
             subtitle: '${formatNumber.format(globalData.death.value)}',
             color: Colors.red,
-            onTap: (){}
           ),
         ],
-      ):Center(child: SpinKitCircle(color: Colors.red,),),
+      ):Center(child: SpinKitFadingCube(color: Colors.red,),),
     );
   }
-  Widget _listTileWidget({title,subtitle,color,onTap}){
+  Widget _listTileWidget({title,subtitle,color,}){
     return Container(
       height: 140,
       child: Card(
         child: ListTile(
-          title: Text(title,style: TextStyle(fontSize: 20,color: color),),
-          subtitle: Text(subtitle,style: TextStyle(fontSize: 25),),
-          trailing: GestureDetector(
-            child: Text('Lihat Detail'),
-            onTap: onTap,
-          ),
+          title: Text(title,style: TextStyle(fontSize: 15,),),
+          subtitle: Text(subtitle,style: TextStyle(fontSize: 40,color: color),),
         ),
       ),
     );
