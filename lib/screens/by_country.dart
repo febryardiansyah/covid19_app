@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:covid19/models/country_model.dart';
 import 'package:covid19/providers/country_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -44,36 +45,6 @@ class _ByCountryState extends State<ByCountry> {
       appBar: AppBar(
         title: Text('Berdasarkan Negara'),
         elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              return TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  labelText: 'Cari',
-                  hintText: 'Cari Negara',
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                ),
-                onChanged: (value) {
-                  onSearchText(value
-                      .toLowerCase()
-                      .substring(0)
-                      .toLowerCase()
-                      .substring(1));
-                  print(value
-                      .toUpperCase()
-                      .substring(0)
-                      .toLowerCase()
-                      .substring(1));
-                },
-              );
-            },
-          )
-        ],
       ),
       body: Column(
         children: <Widget>[
@@ -186,7 +157,7 @@ class _ByCountryState extends State<ByCountry> {
                               blurRadius: 12)
                         ]),
                         child: ListTile(
-                          leading: Text('${i+1}'),
+                          leading: Text('${i + 1}'),
                           title: Text(
                             _searchResult[i].region,
                             style: TextStyle(fontSize: 20),
@@ -220,10 +191,10 @@ class _ByCountryState extends State<ByCountry> {
 
   onSearchText(String query) async {
     _searchResult.clear();
-//    if (query.isEmpty) {
-//      setState(() {});
-//      return;
-//    }
+    if (query.isEmpty) {
+      setState(() {});
+      return;
+    }
     _countryDetails.forEach((res) {
       if (res.region.contains(query)) {
         _searchResult.add(res);
@@ -232,5 +203,3 @@ class _ByCountryState extends State<ByCountry> {
     setState(() {});
   }
 }
-
-

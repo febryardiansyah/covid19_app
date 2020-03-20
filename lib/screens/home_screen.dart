@@ -1,9 +1,12 @@
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
 import 'package:covid19/providers/history_provider.dart';
+import 'package:covid19/screens/help_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/fa_icon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -17,10 +20,11 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<GlobalProvider>(context,listen: false).getGlobalProvider();
-    Provider.of<CountryProvider>(context,listen: false).getCountry();
-    Provider.of<HistoryProvider>(context,listen: false).getHistory();
+    Provider.of<GlobalProvider>(context, listen: false).getGlobalProvider();
+    Provider.of<CountryProvider>(context, listen: false).getCountry();
+    Provider.of<HistoryProvider>(context, listen: false).getHistory();
   }
+
   @override
   Widget build(BuildContext context) {
     var globalData = Provider.of<GlobalProvider>(context).global;
@@ -35,37 +39,56 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.live_help),
-            onPressed: (){},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>HelpScreen()
+              ));
+            },
           )
         ],
       ),
-      body: globalData != null ? ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        children: <Widget>[
-          SizedBox(height: 10,),
-          Align(
-              alignment: Alignment.topRight,
-              child: Text('Terakhir diperbaharui : \t${formatTgl.format(globalData.lastUpdate)}')),
-          SizedBox(height: 10,),
-          _listTileWidget(
-            title: 'Dikonfirmasi',
-            subtitle: '${formatNumber.format(globalData.confirmed.value,)}',
-          ),
-          _listTileWidget(
-            title: 'Sembuh',
-            subtitle: '${formatNumber.format(globalData.recovered.value)}',
-            color: Colors.blue,
-          ),
-          _listTileWidget(
-            title: 'Meninggal',
-            subtitle: '${formatNumber.format(globalData.death.value)}',
-            color: Colors.red,
-          ),
-        ],
-      ):Center(child: SpinKitFadingCube(color: Colors.red,),),
+      body: globalData != null
+          ? ListView(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                        'Terakhir diperbaharui : \t${formatTgl.format(globalData.lastUpdate)}')),
+                SizedBox(
+                  height: 10,
+                ),
+                _listTileWidget(
+                    title: 'Dikonfirmasi',
+                    subtitle: '${formatNumber.format(
+                      globalData.confirmed.value,
+                    )}',
+                    icon: FontAwesomeIcons.userFriends),
+                _listTileWidget(
+                    title: 'Sembuh',
+                    subtitle:
+                        '${formatNumber.format(globalData.recovered.value)}',
+                    color: Colors.blue,
+                    icon: FontAwesomeIcons.userCheck),
+                _listTileWidget(
+                    title: 'Meninggal',
+                    subtitle: '${formatNumber.format(globalData.death.value)}',
+                    color: Colors.red,
+                    icon: FontAwesomeIcons.userMinus),
+              ],
+            )
+          : Center(
+              child: SpinKitFadingCube(
+                color: Colors.red,
+              ),
+            ),
     );
   }
-  Widget _listTileWidget({title,subtitle,color,}){
+
+  Widget _listTileWidget({title, subtitle, color, icon}) {
     return Container(
       height: 140,
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -74,24 +97,30 @@ class _HomeState extends State<Home> {
           color: Color(0xFFECF0F3),
           boxShadow: [
             BoxShadow(
-                offset: Offset(10, 10),
-                color: Colors.black12,
-                blurRadius: 12),
+                offset: Offset(10, 10), color: Colors.black12, blurRadius: 12),
             BoxShadow(
-                offset: Offset(-5, -5),
-                color: Colors.white,
-                blurRadius: 12)
+                offset: Offset(-5, -5), color: Colors.white, blurRadius: 12)
           ]),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title,style: TextStyle(color: color,fontSize: 15),),
-            Text(subtitle,style: TextStyle(color: color,fontSize: 35,fontWeight: FontWeight.bold),),
+            Text(
+              title,
+              style: TextStyle(color: color, fontSize: 15),
+            ),
+            Text(
+              subtitle,
+              style: TextStyle(
+                  color: color, fontSize: 35, fontWeight: FontWeight.bold),
+            ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Text('Global'),
+              child: FaIcon(
+                icon,
+                color: color,
+              ),
             )
           ],
         ),

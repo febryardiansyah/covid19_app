@@ -2,6 +2,8 @@ import 'package:covid19/screens/by_country.dart';
 import 'package:covid19/screens/home_screen.dart';
 import 'package:covid19/screens/kasus_indonesia.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/fa_icon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BotomNavBar extends StatefulWidget {
   @override
@@ -26,16 +28,16 @@ class _BotomNavBarState extends State<BotomNavBar> {
         onTap: onTap,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_drop_down_circle),
+            icon: FaIcon(FontAwesomeIcons.globe),
             title: Text('Global')
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.flag),
+            icon: FaIcon(FontAwesomeIcons.solidFlag),
             title: Text('Negara')
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.personal_video),
-            title: Text('Indonesia')
+            icon: FaIcon(FontAwesomeIcons.history),
+            title: Text('Kasus')
           )
         ],
       ),

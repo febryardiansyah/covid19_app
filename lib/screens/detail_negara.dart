@@ -1,15 +1,22 @@
 import 'package:covid19/models/country_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 
-class DetailNegara extends StatelessWidget {
+class DetailNegara extends StatefulWidget {
   final CountryModel detail;
 
   const DetailNegara({Key key, this.detail}) : super(key: key);
 
   @override
+  _DetailNegaraState createState() => _DetailNegaraState();
+}
+
+class _DetailNegaraState extends State<DetailNegara> {
+  @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     TextStyle txts = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
     final formatNumber = NumberFormat('#,###');
     return Scaffold(
@@ -35,7 +42,7 @@ class DetailNegara extends StatelessWidget {
                 width: 200,
                 child: Center(
                     child: Text(
-                      '${detail.region}',
+                      '${widget.detail.region}',
                       style: txts,
                     )),
                 decoration: BoxDecoration(
@@ -58,26 +65,26 @@ class DetailNegara extends StatelessWidget {
                   children: <Widget>[
                     _neuroPishm(
                         title: 'Total Kasus',
-                        subtitle: detail.confirmed,
+                        subtitle: widget.detail.confirmed,
                         titleUnder: 'Aktif  : \t',
-                        number: '${formatNumber.format(detail.active)}'),
+                        number: '${formatNumber.format(widget.detail.active)}'),
                     _neuroPishm(
                         title: 'Hari ini',
-                        subtitle: detail.today,
+                        subtitle: widget.detail.today,
                         titleUnder: '',
                         number: ''),
                     _neuroPishm(
                         title: 'Sembuh',
-                        subtitle: detail.recovered,
+                        subtitle: widget.detail.recovered,
                         warna: Colors.blue,
                         titleUnder: 'Kritis : \t',
-                        number: '${formatNumber.format(detail.recovered)}'),
+                        number: '${formatNumber.format(widget.detail.recovered)}'),
                     _neuroPishm(
                         title: 'Meninggal',
-                        subtitle: detail.deaths,
+                        subtitle: widget.detail.deaths,
                         warna: Colors.red,
                         titleUnder: 'Hari ini : \t',
-                        number: '${formatNumber.format(detail.todayDeaths)}')
+                        number: '${formatNumber.format(widget.detail.todayDeaths)}')
                   ],
                 ),
               )
@@ -90,7 +97,7 @@ class DetailNegara extends StatelessWidget {
     final formatNumber = NumberFormat('#,###');
     return Container(
       padding: EdgeInsets.all(12),
-      height: 200,
+      height: ScreenUtil().setHeight(200),
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -114,7 +121,7 @@ class DetailNegara extends StatelessWidget {
             child: Text(
               '${formatNumber.format(subtitle)}',
               style: TextStyle(
-                  fontSize: 45, fontWeight: FontWeight.bold, color: warna),
+                  fontSize: ScreenUtil().setSp(80), fontWeight: FontWeight.bold, color: warna),
             ),
           ),
           SizedBox(
