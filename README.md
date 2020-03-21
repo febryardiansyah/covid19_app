@@ -4,6 +4,9 @@
 
 This project is a starting point for a Flutter application.
 
+Download Aplikasi :
+- [Download Disini](https://github.com/febryardiansyah/covid19_app/releases)
+
 Rest Api :
 
 - [Covid Api-19 by Mathroid](https://github.com/mathdroid/covid-19-api)

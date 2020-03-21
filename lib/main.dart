@@ -2,6 +2,7 @@ import 'package:covid19/botom_nav_Bar.dart';
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
 import 'package:covid19/providers/history_provider.dart';
+import 'package:covid19/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,11 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xFFECF0F3),
         ),
         debugShowCheckedModeBanner: false,
-        home: BotomNavBar(),
+        initialRoute: '/',
+        routes: {
+          '/':(_) => SplashScreen(),
+          '/navBar':(_) => BotomNavBar(),
+        },
       ),
     );
   }
