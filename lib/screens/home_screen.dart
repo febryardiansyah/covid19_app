@@ -1,6 +1,8 @@
+import 'package:covid19/models/province_provider.dart';
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
 import 'package:covid19/providers/history_provider.dart';
+import 'package:covid19/providers/version_provider.dart';
 import 'package:covid19/screens/help_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +23,18 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     Provider.of<GlobalProvider>(context, listen: false).getGlobalProvider();
-    Provider.of<CountryProvider>(context, listen: false).getCountry();
     Provider.of<HistoryProvider>(context, listen: false).getHistory();
+    Provider.of<CountryProvider>(context, listen: false).getCountry();
+    Provider.of<ProvinceProvider>(context,listen: false).getProvince();
+//    Provider.of<VersionProvider>(context, listen: false).getVersion();
   }
 
   @override
   Widget build(BuildContext context) {
+//    var versionData = Provider.of<VersionProvider>(context).versionModel;
     var globalData = Provider.of<GlobalProvider>(context).global;
     final formatNumber = NumberFormat('#,###');
     final formatTgl = DateFormat('dd - MMMM - yyyy');
-
     return Scaffold(
       backgroundColor: Color(0xFFECF0F3),
       appBar: AppBar(
@@ -40,9 +44,8 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.live_help),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>HelpScreen()
-              ));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HelpScreen()));
             },
           )
         ],
@@ -78,6 +81,25 @@ class _HomeState extends State<Home> {
                     subtitle: '${formatNumber.format(globalData.death.value)}',
                     color: Colors.red,
                     icon: FontAwesomeIcons.userMinus),
+//                FutureBuilder(
+//                  future: Provider.of<VersionProvider>(context,listen: false).getVersion(),
+//                  builder: (context, snapshot) {
+//                    if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData && snapshot.connectionState == ConnectionState.none) {
+//                      return Center(child: Text('Loading....'),);
+//                    }
+//                    return Consumer<VersionProvider>(
+//                      builder: (context,data,_){
+//                        return ListView.builder(
+//                          shrinkWrap: true,
+//                          itemCount: data.listVersi.length,
+//                          itemBuilder: (context,i){
+//                            return Text('${data.listVersi[i].version}');
+//                          },
+//                        );
+//                      },
+//                    );
+//                  },
+//                ),
               ],
             )
           : Center(

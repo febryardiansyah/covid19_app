@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:covid19/models/country_model.dart';
 import 'package:covid19/providers/country_provider.dart';
+import 'package:covid19/providers/global_provider.dart';
+import 'package:covid19/providers/history_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +12,10 @@ import 'package:http/http.dart' as http;
 import 'detail_negara.dart';
 
 class ByCountry extends StatefulWidget {
+  final CountryModel getCountryJson;
+
+  const ByCountry({Key key, this.getCountryJson}) : super(key: key);
+
   @override
   _ByCountryState createState() => _ByCountryState();
 }
@@ -29,14 +35,12 @@ class _ByCountryState extends State<ByCountry> {
       }
     });
   }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getJson();
   }
-
   @override
   Widget build(BuildContext context) {
     var countryData = Provider.of<CountryProvider>(context).listCountry;

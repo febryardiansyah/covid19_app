@@ -13,7 +13,6 @@ class GlobalProvider extends ChangeNotifier{
     if(response.statusCode == 200){
       notifyListeners();
       var res = globalModelFromJson(response.body);
-      print(res);
       global = res;
       return global;
     }else{

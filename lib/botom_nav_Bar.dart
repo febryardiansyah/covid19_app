@@ -1,6 +1,6 @@
 import 'package:covid19/screens/by_country.dart';
 import 'package:covid19/screens/home_screen.dart';
-import 'package:covid19/screens/kasus_indonesia.dart';
+import 'package:covid19/screens/indonesia.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
