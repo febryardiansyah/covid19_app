@@ -53,7 +53,7 @@ class HelpScreen extends StatelessWidget {
                 leading: CircleAvatar(child: FaIcon(FontAwesomeIcons.github),),
                 title: 'Github',
                 subtitle:
-                'https://github.com/febryardiansyah',
+                'febryardiansyah',
                 onTap: () {
                   _launchUrl(
                       'https://github.com/febryardiansyah');
@@ -62,7 +62,7 @@ class HelpScreen extends StatelessWidget {
                 leading: CircleAvatar(child: FaIcon(FontAwesomeIcons.instagram),),
                 title: 'Instagram',
                 subtitle:
-                'http://instagram.com/febry_ardiansyah24/',
+                'febry_ardiansyah24',
                 onTap: () {
                   _launchUrl(
                       'http://instagram.com/febry_ardiansyah24/');

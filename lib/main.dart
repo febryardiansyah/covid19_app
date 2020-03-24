@@ -1,5 +1,5 @@
 import 'package:covid19/botom_nav_Bar.dart';
-import 'package:covid19/models/province_provider.dart';
+import 'package:covid19/providers/province_provider.dart';
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
 import 'package:covid19/providers/history_provider.dart';
@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GlobalProvider(),),
         ChangeNotifierProvider(create: (_) => HistoryProvider(),),
         ChangeNotifierProvider(create: (_) => CountryProvider(),),
-        ChangeNotifierProvider(create: (_) => ProvinceProvider(),)
-//        ChangeNotifierProvider(create: (_) => VersionProvider(),)
+        ChangeNotifierProvider(create: (_) => ProvinceProvider(),),
+        ChangeNotifierProvider(create: (_) => VersionProvider(),)
       ],
       child: MaterialApp(
         theme: ThemeData(

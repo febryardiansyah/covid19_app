@@ -14,8 +14,7 @@ class VersionModel {
      title: json['title'],
      version: json['version'],
      date: json['date'],
-     changelog: json['changelog']
+     changelog: List<String>.from(json['changelog'])
    );
  }
-
 }

@@ -1,9 +1,10 @@
-import 'package:covid19/models/province_provider.dart';
+import 'package:covid19/providers/province_provider.dart';
 import 'package:covid19/providers/country_provider.dart';
 import 'package:covid19/providers/global_provider.dart';
 import 'package:covid19/providers/history_provider.dart';
 import 'package:covid19/providers/version_provider.dart';
 import 'package:covid19/screens/help_screen.dart';
+import 'package:covid19/screens/indonesia.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,6 +12,7 @@ import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,6 +20,68 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String currentVersion = 'v.1.0';
+  List<String>listChangelog =[];
+  String newVersion,title,date;
+  void getListChangeLog()async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List<String>prefList = pref.getStringList('listChangelog');
+    String _version = pref.getString('version');
+    String _judul = pref.getString('title');
+    String _tgl = pref.getString('date');
+    setState(() {
+      listChangelog = prefList;
+      newVersion = _version;
+      title = _judul;
+      date = _tgl;
+    });
+  }
+  void dialogAlert(){
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(title),
+              content: Wrap(
+                children: <Widget>[
+                  Text('Changelog : '),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      FaIcon(FontAwesomeIcons.list),
+                      Center(child: Text('$listChangelog')),
+                    ],
+                  ),
+                  Divider(),
+                  Text('Versi terbaru : \t'+newVersion),
+                  Divider(),
+                  Text('Tanggal Update : \t'+date)
+                ],
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Download Versi Terbaru'),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                  child: Text('Abaikan'),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+  }
+  void cekVersi()async{
+    if(newVersion != currentVersion){
+      dialogAlert();
+    }else{
+      return null;
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -26,12 +90,13 @@ class _HomeState extends State<Home> {
     Provider.of<HistoryProvider>(context, listen: false).getHistory();
     Provider.of<CountryProvider>(context, listen: false).getCountry();
     Provider.of<ProvinceProvider>(context,listen: false).getProvince();
-//    Provider.of<VersionProvider>(context, listen: false).getVersion();
+    Provider.of<VersionProvider>(context, listen: false).getVersion();
+    getListChangeLog();
+    Future.delayed(Duration.zero,this.cekVersi);
   }
 
   @override
   Widget build(BuildContext context) {
-//    var versionData = Provider.of<VersionProvider>(context).versionModel;
     var globalData = Provider.of<GlobalProvider>(context).global;
     final formatNumber = NumberFormat('#,###');
     final formatTgl = DateFormat('dd - MMMM - yyyy');
@@ -81,25 +146,6 @@ class _HomeState extends State<Home> {
                     subtitle: '${formatNumber.format(globalData.death.value)}',
                     color: Colors.red,
                     icon: FontAwesomeIcons.userMinus),
-//                FutureBuilder(
-//                  future: Provider.of<VersionProvider>(context,listen: false).getVersion(),
-//                  builder: (context, snapshot) {
-//                    if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData && snapshot.connectionState == ConnectionState.none) {
-//                      return Center(child: Text('Loading....'),);
-//                    }
-//                    return Consumer<VersionProvider>(
-//                      builder: (context,data,_){
-//                        return ListView.builder(
-//                          shrinkWrap: true,
-//                          itemCount: data.listVersi.length,
-//                          itemBuilder: (context,i){
-//                            return Text('${data.listVersi[i].version}');
-//                          },
-//                        );
-//                      },
-//                    );
-//                  },
-//                ),
               ],
             )
           : Center(
