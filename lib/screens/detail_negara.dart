@@ -78,7 +78,7 @@ class _DetailNegaraState extends State<DetailNegara> {
                         subtitle: widget.detail.recovered,
                         warna: Colors.blue,
                         titleUnder: 'Kritis : \t',
-                        number: '${formatNumber.format(widget.detail.recovered)}'),
+                        number: '${formatNumber.format(widget.detail.critical)}'),
                     _neuroPishm(
                         title: 'Meninggal',
                         subtitle: widget.detail.deaths,

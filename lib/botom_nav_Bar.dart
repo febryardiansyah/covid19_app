@@ -36,8 +36,8 @@ class _BotomNavBarState extends State<BotomNavBar> {
             title: Text('Negara')
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.history),
-            title: Text('Kasus')
+            icon: FaIcon(FontAwesomeIcons.chartArea),
+            title: Text('Indonesia')
           )
         ],
       ),

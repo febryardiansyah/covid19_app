@@ -13,6 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
   void getListChangeLog()async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     List<String>prefList = pref.getStringList('listChangelog');
+
     String _version = pref.getString('version');
     String _judul = pref.getString('title');
     String _tgl = pref.getString('date');
@@ -35,6 +37,14 @@ class _HomeState extends State<Home> {
       title = _judul;
       date = _tgl;
     });
+  }
+  _launchUrl()async{
+    final url = 'https://github.com/febryardiansyah/covid19_app/releases/tag/covid19v.1';
+    if(await canLaunch(url)){
+      await launch(url);
+    }else{
+      throw 'Could not launch $url';
+    }
   }
   void dialogAlert(){
       showDialog(
@@ -62,7 +72,7 @@ class _HomeState extends State<Home> {
                 FlatButton(
                   child: Text('Download Versi Terbaru'),
                   onPressed: (){
-                    Navigator.pop(context);
+                    _launchUrl();
                   },
                 ),
                 FlatButton(

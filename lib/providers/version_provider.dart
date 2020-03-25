@@ -6,7 +6,7 @@ import 'package:http/http.dart'as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VersionProvider extends ChangeNotifier {
-  final url = 'http://1fde25d8.ngrok.io/corona-version-api/public/';
+  final url = 'https://auctionary-bush.000webhostapp.com/public/';
   VersionModel versionModel;
   List<VersionModel>_listVersi = [];
   List<VersionModel> get listVersi => _listVersi;

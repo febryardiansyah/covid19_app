@@ -15,13 +15,6 @@ Rest Api :
 
 Screenshot:
 
-- Global Data<br>
-<img src="assets/screenshot/global.png" width ="50%"><br>
-- Berdasarkan Negara<br>
-<img src="assets/screenshot/berdasarkanNegara.png" width ="50%"><br>
-- Lihat Detail<br>
-<img src="assets/screenshot/detailNegara.png" width ="50%"><br>
-- History<br>
-<img src="assets/screenshot/history.png" width ="50%"><br>
+<img src="assets/screenshot/banner.png">
 
 
