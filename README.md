@@ -15,6 +15,6 @@ Rest Api :
 
 Screenshot:
 
-<img src="assets/screenshot/banner.png">
+<img src="assets/screenshot/banner.jpg">
 
 
